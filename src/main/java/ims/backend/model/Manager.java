@@ -14,12 +14,14 @@ import lombok.Data;
 @Entity
 public class Manager {
     @Id
+    private String userEmail; //이메일
+    
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id; // 회원번호
     private String userName; //이름
-    private String userEmail; //이메일
     private String userBirth; // 생년월일
     private String userPhone; //핸드폰 번호
     private String className; //교육 과정
+    private String userPers; //사용자 권한
     private Date signUpDate; 
 }
