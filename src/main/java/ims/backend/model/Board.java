@@ -20,10 +20,12 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String category;
     private String title;
     private String content;
     private String userId;
     @CreatedDate
     private LocalDateTime regDate;
+    private String fileId;
     
 }
