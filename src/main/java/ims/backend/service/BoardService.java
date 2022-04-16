@@ -53,4 +53,7 @@ public class BoardService {
         System.out.println("2. Service : DeleteBoard 삭제 테스트입니다.");
         return ResponseEntity.ok(board);
     }
+
+    
+
 }
