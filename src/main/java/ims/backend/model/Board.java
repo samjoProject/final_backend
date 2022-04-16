@@ -27,5 +27,5 @@ public class Board {
     @CreatedDate
     private LocalDateTime regDate;
     private String fileId;
-    
+
 }
