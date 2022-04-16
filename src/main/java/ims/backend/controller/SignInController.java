@@ -3,13 +3,11 @@ package ims.backend.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import ims.backend.model.Manager;
-import ims.backend.model.Student;
-import ims.backend.model.Teacher;
-import ims.backend.repository.*;
+import ims.backend.service.SignInService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,34 +17,47 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class SignInController {
     @Autowired
-    StudentRepository studentRepository;
+    SignInService SIS;
 
-    @Autowired
-    TeacherRepository teacherRepository;
-
-    @Autowired
-    ManagerRepository managerRepository;
-    
     @GetMapping("/checkDBSignIn")   
-    public Map<String, Object> checkDBSignIn(@RequestParam("email") String email) {
-        System.out.println(email);
-        Student findStudent = new Student();
-        Teacher findTeacher = new Teacher();
-        Manager findManager = new Manager();
-
-        findStudent = studentRepository.findByUserEmail(email);
-        findTeacher = teacherRepository.findByUserEmail(email);
-        findManager = managerRepository.findByUserEmail(email);
-
+    public Map<String, Object> checkDBSignIn(@RequestParam("email") String userEmail) {
         Map<String, Object> res = new HashMap<>();
-        if (findStudent != null || findTeacher != null ||findManager !=null) {
-            res.put("code", 200);
-            res.put("msg", "로그인이 완료되었습니다.");
-            return res;
-        } else {
-            res.put("code", 201);
-            res.put("msg", "데이터가 없습니다. 회원가입을 진행해주십시오.");
-            return res;
-        }
+        res = SIS.findDBSignIn(userEmail);        
+        return res;
     }
-}
+    
+    @PostMapping("/getClassMember")
+    public Map<String, Object> getClassMember(@RequestParam("className") String className){
+        System.out.println("className :" +className);
+        Map<String, Object> res = new HashMap<>();
+        res = SIS.getClassMemberService(className);
+        return res;
+    }
+
+    @PostMapping("/givePersStudent")
+    public String givePersStudent(@RequestParam("userEmail") String userEmail){
+        String res = new String();
+        res = SIS.givePersStudentService(userEmail);
+        return res;
+    }
+    @PostMapping("/givePersTeacher")
+    public String givePersTeacher(@RequestParam("userEmail") String userEmail){
+        String res = new String();
+        res = SIS.givePersTeacherService(userEmail);
+        return res;
+    }
+
+    @PostMapping("/deleteStudent")
+    public String deleteStudent(@RequestParam("userEmail") String userEmail){
+        String res = new String();
+        res = SIS.deleteStudentService(userEmail);
+        return res;
+    }
+
+    @PostMapping("/deleteTeacher")
+    public String deleteTeacher(@RequestParam("userEmail") String userEmail){
+        String res = new String();
+        res = SIS.deleteTeacherService(userEmail);
+        return res;
+    }
+}   

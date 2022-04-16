@@ -80,7 +80,6 @@ public class SignUpController {
         if (res.get("status") != null) {
             res.put("msg", "이미 인증이 된 기관입니다.");
             System.out.println("testing");
-            return res;
         } else {
             if (i == 200) {
                 WaitInstitute wait = new WaitInstitute();
@@ -90,8 +89,8 @@ public class SignUpController {
                 waitInstituteRepository.save(wait);
                 System.out.println("저장한 데이터베이스 확인 : " + wait);
             } 
-            return res;
         }
+        return res;
     }
 
     @PostMapping("/saveins")
@@ -106,6 +105,7 @@ public class SignUpController {
     public String signUpManager(Manager manager){
         Date now = new Date();
         manager.setSignUpDate(now);
+        manager.setUserPers("3");
         System.out.println(manager);
         managerRepository.save(manager);
         return "회원가입이 완료되었습니다";
@@ -115,6 +115,7 @@ public class SignUpController {
     public String signUpStudent(Student student){
         Date now = new Date();
         student.setSignUpDate(now);
+        student.setUserPers("0");
         System.out.println(student);
         studentRepository.save(student);
         return "회원가입이 완료되었습니다";
@@ -124,6 +125,7 @@ public class SignUpController {
     public String signUpTeacher(Teacher teacher){
         Date now = new Date();
         teacher.setSignUpDate(now);
+        teacher.setUserPers("0");
         System.out.println(teacher);
         teacherRepository.save(teacher);
         return "회원가입이 완료되었습니다";
