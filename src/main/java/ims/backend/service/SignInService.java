@@ -1,6 +1,8 @@
 package ims.backend.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ims.backend.model.*;
@@ -60,4 +62,63 @@ public class SignInService {
         return res;
     }
 
+    public Map<String, Object> getClassMemberService(String className){
+        Map<String, Object> res = new HashMap<>();
+        List<Student>dataStudent = studentRepository.findAll();
+        List<Student>dataStudentOut = new ArrayList<Student>();
+        List<Teacher>dataTeacher = teacherRepository.findAll();
+        List<Teacher>dataTeacherOut = new ArrayList<Teacher>();
+        int sizeStudent = dataStudent.size();
+        int sizeTeacher = dataTeacher.size();
+
+        for (int i = 0; i < sizeStudent; i++) {
+            if(dataStudent.get(i).getClassName().equals(className)){
+                dataStudentOut.add(dataStudent.get(i));
+            }
+        }
+        for(int i=0; i< sizeTeacher; i++){
+            if(dataTeacher.get(i).getClassName().equals(className)){
+                dataTeacherOut.add(dataTeacher.get(i));
+            }
+        }
+        res.put("student", dataStudentOut);
+        res.put("teacher", dataTeacherOut);
+        System.out.println(res);
+        return res;
+    }
+
+    public String givePersStudentService(String userEmail){
+        String res = new String();
+        Student student = studentRepository.findByUserEmail(userEmail);
+        System.out.println(student);
+        student.setUserPers("1");
+        studentRepository.save(student);
+        res = student.getUserPers();
+        return res;
+    }
+    public String givePersTeacherService(String userEmail){
+        String res = new String();
+        Teacher teacher = teacherRepository.findByUserEmail(userEmail);
+        System.out.println(teacher);
+        teacher.setUserPers("2");
+        teacherRepository.save(teacher);
+        res = teacher.getUserPers();
+        return res;
+    }
+
+    public String deleteStudentService(String userEmail){
+        String res = new String();
+        Student student = studentRepository.findByUserEmail(userEmail);
+        studentRepository.delete(student);
+        res = "삭제 완료";
+        return res;
+    }
+
+    public String deleteTeacherService(String userEmail){
+        String res = new String();
+        Teacher teacher = teacherRepository.findByUserEmail(userEmail);
+        teacherRepository.delete(teacher);
+        res = "삭제 완료";
+        return res;
+    }
 }
