@@ -30,16 +30,13 @@ public class BoardController {
     // 1. ListBoard 글목록
     @GetMapping("/board")
     public List<Board> list() {
-        System.out.println("1. Controller : ListBoard 목록확인 테스트입니다.");
         return boardService.list();     
     }
 
-    // 2. CreateBoadr 글쓰기
+    // 2. CreateBoard 글쓰기
     @PostMapping("/post")
     public Board create(@RequestBody Board board) {
-        System.out.println("1. Controller : CreateBoard 글쓰기 테스트");
         return boardService.savePost(board);
-
     }
     
     // 3. ReadBoard 상세보기
