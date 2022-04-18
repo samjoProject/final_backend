@@ -15,6 +15,7 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+
     
     // 1. ListBoard
     public List<Board> list() {
@@ -32,9 +33,13 @@ public class BoardService {
     // @Transactional
     public ResponseEntity<Board> getPost(Long id) {
         Board board = boardRepository.findById(id).get();
+        int cnt = board.getCounts(); // 조회수
+        board.setCounts(cnt+1);
+        Board counts = boardRepository.save(board);
         System.out.println("2. Service : ReadBoard 상세보기테스트");
-        return ResponseEntity.ok(board);
+        return ResponseEntity.ok(counts);
     }
+
 
     // 4. UpdateBoard
     public ResponseEntity<Board> updateBoard(Long id, Board updateBoard) {
