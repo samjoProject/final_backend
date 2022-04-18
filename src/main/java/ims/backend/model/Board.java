@@ -2,12 +2,14 @@ package ims.backend.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -27,5 +29,9 @@ public class Board {
     @CreatedDate
     private LocalDateTime regDate;
     private String fileId;
+
+    @ColumnDefault("0")
+    private Integer counts;
+
 
 }
