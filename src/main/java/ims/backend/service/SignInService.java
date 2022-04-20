@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import ims.backend.model.*;
-import ims.backend.model.Institute.*;
 import ims.backend.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,7 @@ public class SignInService {
         
         String userPers = new String();
         String className = new String();
+        String userName = new String();
         Student findStudent = new Student();
         Teacher findTeacher = new Teacher();
         Manager findManager = new Manager();
@@ -41,24 +41,27 @@ public class SignInService {
             res.put("msg", "로그인이 완료되었습니다.");
             userPers = findStudent.getUserPers();
             className = findStudent.getClassName();
+            userName = findStudent.getUserName();
         } else if (findTeacher != null) {
             res.put("code", 200);
             res.put("msg", "로그인이 완료되었습니다.");
             userPers = findTeacher.getUserPers();
             className = findTeacher.getClassName();
+            userName = findTeacher.getUserName();
         } else if (findManager != null) {
             res.put("code", 200);
             res.put("msg", "로그인이 완료되었습니다.");
             userPers = findManager.getUserPers();
             className = findManager.getClassName();
+            userName = findManager.getUserName();
         } else {
             res.put("code", 201);
             res.put("msg", "데이터가 없습니다. 회원가입을 진행해주십시오.");
-            return res;
         }
 
         res.put("userPers", userPers);
         res.put("className", className);
+        res.put("userName", userName);
         return res;
     }
 
