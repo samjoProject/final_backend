@@ -20,7 +20,7 @@ import ims.backend.service.BoardService;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://nanuri-client.s3-website-us-east-1.amazonaws.com")
 @RequestMapping("/api")
 public class BoardController {
     
