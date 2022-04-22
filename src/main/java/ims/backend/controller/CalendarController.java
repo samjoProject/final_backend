@@ -27,7 +27,7 @@ import ims.backend.service.CalendarService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://http://nanuri-client.s3-website-us-east-1.amazonaws.com")
+@CrossOrigin(origins = "http://nanuri-client.s3-website-us-east-1.amazonaws.com")
 public class CalendarController {
 
     // @Autowired
